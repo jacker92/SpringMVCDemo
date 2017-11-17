@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.s1700306.service.Calculator;
@@ -13,16 +14,17 @@ import com.s1700306.service.Calculator;
 public class CalculatorController {
 
 	@RequestMapping("/calculate")
-	public ModelAndView calculate(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView calculate(@RequestParam("t1") String t1,@RequestParam("t2") String t2,
+			HttpServletRequest request, HttpServletResponse response) {
 		
 		ModelAndView mv = new ModelAndView();
 		Calculator cal = new Calculator();
 		long i1;
 		long i2;
 		
-		if (cal.isNumber(request.getParameter("t1")) && cal.isNumber(request.getParameter("t2"))) {
-			  i1 = Long.parseLong(request.getParameter("t1"));
-			  i2 = Long.parseLong(request.getParameter("t2"));
+		if (cal.isNumber(t1) && cal.isNumber(t2)) {
+			  i1 = Long.parseLong(t1);
+			  i2 = Long.parseLong(t2);
 		} else {
 			mv.setViewName("error.jsp");
 			return mv;
